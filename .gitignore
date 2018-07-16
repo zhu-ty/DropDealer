@@ -11,6 +11,8 @@ Material
 *no_sync*
 *App.xaml.cs
 FaceMelody/App.xaml.cs
+*.csv
+img/
 
 
 # User-specific files (MonoDevelop/Xamarin Studio)
