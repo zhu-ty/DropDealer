@@ -155,11 +155,11 @@ namespace DropDealer
 
             for (int i = 0; i < items.Rows.Count; i++)
             {
-                itemIDReflect.Add(new KeyValuePair<int, int>(int.Parse((string)items.Rows[i][1]), i + 10000000));
+                itemIDReflect.Add(new KeyValuePair<int, int>(int.Parse((string)items.Rows[i][1]), i + 170000000));
             }
             for (int i = 0; i < mobs.Rows.Count; i++)
             {
-                mobIDReflect.Add(new KeyValuePair<int, int>(int.Parse((string)mobs.Rows[i][1]), i + 100000));
+                mobIDReflect.Add(new KeyValuePair<int, int>(int.Parse((string)mobs.Rows[i][1]), i + 390000000));
             }
 
             FileStream fs;
@@ -171,6 +171,13 @@ namespace DropDealer
             for (int i = 0; i < mobs.Rows.Count; i++)
             {
                 sw.WriteLine(mobIDReflect[i].Value + "," + mobs.Rows[i][2] + "," + mobs.Rows[i][4] + "," + mobs.Rows[i][14]);
+                string mob_id_file = "./img/mobIcon/" + String.Format("{0:D7}", int.Parse((string)mobs.Rows[i][1])) + ".png";
+                if (File.Exists(mob_id_file))
+                {
+                    File.Copy(mob_id_file, "./output_img/mob/" + mobIDReflect[i].Value + ".png", true);
+                }
+                if (i % (mobs.Rows.Count / 10) == 0)
+                    Console.WriteLine("Mobs Copy " + i / (mobs.Rows.Count / 10) + "0%");
             }
             sw.Close();
             fs.Close();
@@ -181,6 +188,13 @@ namespace DropDealer
             for (int i = 0; i < items.Rows.Count; i++)
             {
                 sw.WriteLine(itemIDReflect[i].Value + "," + items.Rows[i][2] + "," + items.Rows[i][3]);
+                string item_id_file = "./img/itemIcon/0"+items.Rows[i][1].ToString() + ".png";
+                if (File.Exists(item_id_file))
+                {
+                    File.Copy(item_id_file, "./output_img/item/" + itemIDReflect[i].Value + ".png", true);
+                }
+                if (i % (items.Rows.Count / 10) == 0)
+                    Console.WriteLine("Item Copy " + i / (items.Rows.Count / 10) + "0%");
             }
             sw.Close();
             fs.Close();
@@ -202,7 +216,7 @@ namespace DropDealer
             sw.Close();
             fs.Close();
 
-            fs = new FileStream("./item_reflect.csv", FileMode.OpenOrCreate);
+            fs = new FileStream("./output_item_reflect.csv", FileMode.OpenOrCreate);
             sw = new StreamWriter(fs, Encoding.UTF8);
             sw.WriteLine("old_item_id,new_item_id");
             for (int i = 0; i < itemIDReflect.Count; i++)
@@ -212,7 +226,7 @@ namespace DropDealer
             sw.Close();
             fs.Close();
 
-            fs = new FileStream("./mob_reflect.csv", FileMode.OpenOrCreate);
+            fs = new FileStream("./output_mob_reflect.csv", FileMode.OpenOrCreate);
             sw = new StreamWriter(fs, Encoding.UTF8);
             sw.WriteLine("old_mob_id,new_mob_id");
             for (int i = 0; i < mobIDReflect.Count; i++)
@@ -221,6 +235,8 @@ namespace DropDealer
             }
             sw.Close();
             fs.Close();
+
+            
 
             //Console.ReadLine();
         }
