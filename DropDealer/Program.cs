@@ -167,10 +167,10 @@ namespace DropDealer
 
             fs = new FileStream("./output_mobs.csv", FileMode.OpenOrCreate);
             sw = new StreamWriter(fs, Encoding.UTF8);
-            sw.WriteLine("id,name,lv,exp");
+            sw.WriteLine("id,name,lv,hp,exp");
             for (int i = 0; i < mobs.Rows.Count; i++)
             {
-                sw.WriteLine(mobIDReflect[i].Value + "," + mobs.Rows[i][2] + "," + mobs.Rows[i][4] + "," + mobs.Rows[i][14]);
+                sw.WriteLine(mobIDReflect[i].Value + "," + mobs.Rows[i][2] + "," + mobs.Rows[i][4] + "," + mobs.Rows[i][5] + "," + mobs.Rows[i][14]);
                 string mob_id_file = "./img/mobIcon/" + String.Format("{0:D7}", int.Parse((string)mobs.Rows[i][1])) + ".png";
                 if (File.Exists(mob_id_file))
                 {
